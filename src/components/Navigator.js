@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 // import { PropTypes } from 'prop-types';
 
-import Container from './helpers/Container.js'
+import Container from './helpers/Container'
+import NavIcon from './helpers/NavIcon'
 
 import { Toolbar, BottomNavigation, Icon } from 'react-native-material-ui';
 
@@ -22,7 +23,7 @@ class Navigator extends Component {
   render() {
     return (
       <Container>
-        <StatusBar hidden={true}/>
+        <StatusBar hidden={true} />
 
         <Toolbar
           centerElement={this.state.active[1]}
@@ -35,28 +36,28 @@ class Navigator extends Component {
         <BottomNavigation active={this.state.active[0]} >
           <BottomNavigation.Action
             key="local-library"
-            icon={<Icon name="local-library" size={30}/>}
+            icon={<NavIcon name="local-library" />}
             onPress={() => this.setState({
               active: ['local-library', 'Browse']
             })}
           />
           <BottomNavigation.Action
             key="playlist-add-check"
-            icon={<Icon name="playlist-add-check" size={30}/>}
+            icon={<NavIcon name="playlist-add-check" />}
             onPress={() => this.setState({
               active: ['playlist-add-check', 'Checked Out']
             })}
           />
           <BottomNavigation.Action
             key="bookmark-border"
-            icon={<Icon name="bookmark-border" size={30}/>}
+            icon={<NavIcon name="bookmark-border" />}
             onPress={() => this.setState({
               active: ['bookmark-border', 'Bookmark']
             })}
           />
           <BottomNavigation.Action
             key="account-circle"
-            icon={<Icon name="account-circle" size={30}/>}
+            icon={<NavIcon name="account-circle" />}
             onPress={() => this.setState({
               active: ['account-circle', 'Profile']
             })}
