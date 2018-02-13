@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
-import Navigator from './src/components/Navigator';
+import Navigator from './src/components/navigation/Navigator';
 
 /* uiTheme keys:
 spacing: {} // can be used to change the spacing of components.
@@ -29,7 +29,7 @@ const uiTheme = {
   },
 };
 
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <ThemeProvider uiTheme={uiTheme}>
@@ -38,3 +38,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default App;
