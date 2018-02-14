@@ -6,7 +6,9 @@ class Catalog extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {state: "wow"};
+    this.state = {searchInput: ""};
+    
+    this.catalog = ["Catcher in The Rye", "Book Thief", "Ready Player One"]
   }
 
   render() {
@@ -17,12 +19,13 @@ class Catalog extends Component {
           searchable={{
             autoFocus: true,
             placeholder: 'Search',
-            onSubmitEditing: (s) => {alert("You searched for: " + this)}
+            onChangeText: (text) => this.setState({searchInput: text}),
+            onSubmitEditing: () => alert("You searched for: " + this.state.searchInput)
           }}
         />
-        <Text>{this.state.state}</Text>
+        
       </View>
-    )
+    );
   }
 }
 
