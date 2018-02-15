@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Toolbar } from 'react-native-material-ui';
+import { View, FlatList } from 'react-native';
+import { Toolbar, ListItem } from 'react-native-material-ui';
 
 class Catalog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {searchInput: ""};
-    
-    this.catalog = ["Catcher in The Rye", "Book Thief", "Ready Player One"]
+
+    this.catalog = [{key: "Catcher in The Rye"}, {key: "Book Thief"}, {key: "Ready Player One"}];
   }
 
   render() {
@@ -23,7 +23,20 @@ class Catalog extends Component {
             onSubmitEditing: () => alert("You searched for: " + this.state.searchInput)
           }}
         />
-        
+
+        <FlatList
+          data={this.catalog}
+          renderItem={(name) => {
+            alert(name)
+            return (
+              <ListItem
+                divider={true}
+                key={name}
+                centerElement={name}
+              />
+            )}
+          }
+        />
       </View>
     );
   }
