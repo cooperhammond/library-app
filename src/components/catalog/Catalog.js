@@ -20,7 +20,7 @@ class Catalog extends Component {
 
     this.state = {
       searchInput: "",
-      catalog: [{key: "Catcher in The Rye"}, {key: "Book Thief"}, {key: "Ready Player One"}]      
+      catalog: [{key: "Catcher in The Rye"}, {key: "Book Thief"}, {key: "Ready Player One"}]
     };
 
   }
@@ -40,8 +40,19 @@ class Catalog extends Component {
 
         <FlatList
           data={this.state.catalog}
-          renderItem={({item}) => {item.key}}
+          renderItem={({item}) => {
+            return (
+              <ListItem
+                divider={true}
+                centerElement={{
+                  primaryText: item.key
+                }}
+                onPress={() => {alert("You pressed: " + item.key )}}
+              />
+            )
+          }}
         />
+
       </View>
     );
   }
