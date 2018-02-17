@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet} from 'react-native';
 import { Toolbar, ListItem } from 'react-native-material-ui';
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+})
 
 class Catalog extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {searchInput: ""};
+    this.state = {
+      searchInput: "",
+      catalog: [{key: "Catcher in The Rye"}, {key: "Book Thief"}, {key: "Ready Player One"}]      
+    };
 
-    this.catalog = [{key: "Catcher in The Rye"}, {key: "Book Thief"}, {key: "Ready Player One"}];
   }
 
   render() {
@@ -25,17 +39,8 @@ class Catalog extends Component {
         />
 
         <FlatList
-          data={this.catalog}
-          renderItem={(name) => {
-            alert(name)
-            return (
-              <ListItem
-                divider={true}
-                key={name}
-                centerElement={name}
-              />
-            )}
-          }
+          data={this.state.catalog}
+          renderItem={({item}) => {item.key}}
         />
       </View>
     );
