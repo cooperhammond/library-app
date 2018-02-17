@@ -7,6 +7,7 @@ const propTypes = {
     icon: PropTypes.string.isRequired,
     controller: PropTypes.object.isRequired,
     size: PropTypes.number,
+    content: PropTypes.element,
 };
 
 const defaultProps = {
@@ -14,13 +15,14 @@ const defaultProps = {
   icon: null,
   controller: null,
   size: 30,
+  content: null,
 }
 
 class NavActionHelper extends Component {
   render() {
 
     const {
-      name, icon, size, controller
+      name, icon, size, controller, content
     } = this.props
 
     return (
@@ -28,7 +30,7 @@ class NavActionHelper extends Component {
         name={name}
         icon={<Icon name={icon} size={size} />}
         onPress={() => controller.setState({
-          active: [name, icon]
+          active: [name, icon, content]
         })}
       />
     )

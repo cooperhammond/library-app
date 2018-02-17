@@ -5,6 +5,7 @@ import Container from '../helpers/Container';
 import NavActionHelper from './NavActionHelper';
 
 import Catalog from '../catalog/Catalog';
+import Login from '../profile/Login'
 
 import { Toolbar, BottomNavigation, Icon } from 'react-native-material-ui';
 
@@ -22,26 +23,19 @@ class ContentRenderer extends Component {
   }
 
   render() {
-    return(
-      <Catalog />
-    )
-  }
-
-  /* render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Icon name={this.props.state.active[1]} size={100} />
-        <Text>{this.props.state.active[0]}</Text>
+      <View style={{ flex: 1 }}>
+        {this.props.state.active[2]}
       </View>
     )
-  } */
+  }
 }
 
 class Navigator extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { active: ['Browse', 'local-library'] };
+    this.state = { active: ['Browse', 'local-library', <Catalog />] };
   }
 
   render() {
@@ -56,21 +50,25 @@ class Navigator extends Component {
             name="Browse"
             icon="local-library"
             controller={this}
+            content={<Catalog />}
           />
           <NavActionHelper
             name="Checked Out"
             icon="playlist-add-check"
             controller={this}
+            content={<Text>Checked Out</Text>}
           />
           <NavActionHelper
             name="Bookmarks"
             icon="bookmark-border"
             controller={this}
+            content={<Text>Bookmarks</Text>}
           />
           <NavActionHelper
             name="Profile"
             icon="account-circle"
             controller={this}
+            content={<Login />}
           />
         </BottomNavigation>
       </Container>

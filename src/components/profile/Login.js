@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import loginStyles from '../../styles/ProfileStyles';
-import { material } from 'react-native-typography';
 
 class Login extends Component {
   state = {
@@ -24,8 +22,6 @@ class Login extends Component {
   render() {
     return (
       <View style = {loginStyles.container}>
-        <Text style={material.display1}>Login</Text>
-
         <TextInput
           style = {loginStyles.input}
           underlineColorAndroid = "transparent"
@@ -50,7 +46,7 @@ class Login extends Component {
           style={loginStyles.submitButton}
           onPress={() => this.login(this.state.email, this.state.password)}
         >
-          <Text style={material.buttonWhite}> Submit </Text>
+          <Text>Submit </Text>
         </TouchableOpacity>
       </View>
     )
