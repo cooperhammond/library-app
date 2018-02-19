@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet} from 'react-native';
+import { View, Text, FlatList, Image } from 'react-native';
 import { Toolbar, ListItem } from 'react-native-material-ui';
-
-const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   paddingTop: 22
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-})
 
 class Catalog extends Component {
   constructor(props) {
@@ -20,8 +8,12 @@ class Catalog extends Component {
 
     this.state = {
       searchInput: "",
-      catalog: [{key: "Catcher in The Rye"}, {key: "Book Thief"}, {key: "Ready Player One"}]
+      catalog: require('../../../assets/data/catalog.json')
     };
+
+    this.state.catalog.forEach((book, i) => {
+      book.key = i + 1;
+    });
 
   }
 
@@ -44,10 +36,20 @@ class Catalog extends Component {
             return (
               <ListItem
                 divider={true}
-                centerElement={{
-                  primaryText: item.key
-                }}
-                onPress={() => {alert("You pressed: " + item.key )}}
+                numberOfLines="dynamic"
+                centerElement={
+                  <View>
+                    <Image
+                      source={{uri: item.cover.url}}
+                      style={{
+                        width: item.cover.x,
+                        height: item.cover.y
+                      }}
+                    />
+                    <Text>{item.title}</Text>
+                  </View>
+                }
+                onPress={() => {alert("You pressed: " + item.title )}}
               />
             )
           }}

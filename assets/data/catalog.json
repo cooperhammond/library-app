@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Catcher in The Rye",
+    "author": "J. D. Salinger",
+    "cover": {"url": "https://i.imgur.com/ES5BTj0.jpg", "x": 307, "y": 499}
+  },
+  {
+    "title": "Book Thief",
+    "author": "Markus Zusak",
+    "cover": {"url": "https://i.imgur.com/p7XuIWw.jpg", "x": 319, "y": 499}
+  },
+  {
+    "title": "Ready Player One",
+    "author": "Ernest Cline",
+    "cover": {"url": "https://i.imgur.com/0taJjyf.jpg", "x": 324, "y": 499}
+  }
+]
