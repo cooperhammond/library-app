@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar } from 'react-native';
+
+import {
+  View,
+  Text,
+  StatusBar
+} from 'react-native';
 
 import Container from '../helpers/Container';
 
 import Catalog from '../catalog/Catalog';
 import Login from '../profile/Login'
 
-import { Toolbar, BottomNavigation, Icon } from 'react-native-material-ui';
+import {
+  Toolbar,
+  BottomNavigation,
+  Icon
+} from 'react-native-material-ui';
 
 class ContentRenderer extends Component {
   constructor(props) {
@@ -40,11 +49,6 @@ class Navigator extends Component {
           icon: "playlist-add-check",
           content: <Text>Checked Out</Text>
         },
-        /*{
-          key: "Bookmarks",
-          icon: "bookmark-border",
-          content: <Text>Bookmarks</Text>
-        },*/
         {
           key: "Profile",
           icon: "account-circle",
