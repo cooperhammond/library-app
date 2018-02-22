@@ -10,8 +10,8 @@ import { PropTypes } from 'prop-types';
 
 
 const propTypes = {
-    catalog: PropTypes.array.isRequired,
-    height: PropTypes.number,
+  catalog: PropTypes.array.isRequired,
+  height: PropTypes.number,
 };
 
 const defaultProps = {
@@ -23,8 +23,9 @@ class CatalogList extends Component {
   constructor(props) {
     super(props);
 
-    this.props.catalog.forEach((book, i) => {
-      book.key = i + 1;
+    // For FlatList, every item needs a key so that it can be memory efficient
+    this.props.catalog.forEach((item, i) => {
+      item.key = i + 1;
     });
 
     this.handlePress.bind(this);
@@ -44,6 +45,7 @@ class CatalogList extends Component {
 
         renderItem={({item}) => {
 
+          // Retain aspect ration and scale the image to the defined height
           var height = this.props.height;
           var width = height / (item.cover.y / item.cover.x);
 

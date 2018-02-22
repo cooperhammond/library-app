@@ -1,17 +1,32 @@
 [
   {
-    "title": "Catcher in The Rye",
-    "author": "J. D. Salinger",
-    "cover": {"url": "https://i.imgur.com/ES5BTj0.jpg", "x": 307, "y": 499}
-  },
-  {
-    "title": "Book Thief",
-    "author": "Markus Zusak",
-    "cover": {"url": "https://i.imgur.com/p7XuIWw.jpg", "x": 319, "y": 499}
+    "title": "Life of Pi",
+    "author": "Yann Martel",
+    "cover": {"url": "https://s3-ap-southeast-2.amazonaws.com/assets.allenandunwin.com/images/small/9781782118695.jpg", "x": 1535, "y": 2327},
+    "tags": ["AP Literature"]
   },
   {
     "title": "Ready Player One",
     "author": "Ernest Cline",
-    "cover": {"url": "https://i.imgur.com/0taJjyf.jpg", "x": 324, "y": 499}
+    "cover": {"url": "https://i.imgur.com/0taJjyf.jpg", "x": 324, "y": 499},
+    "tags": ["Science Fiction"]
+  },
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "cover": {"url": "http://covers2.booksamillion.com/covers/bam/0/74/327/356/0743273567.jpg", "x": 1400, "y": 2142},
+    "tags": ["Essentials", "AP Literature"]
+  },
+  {
+    "title": "Catcher in The Rye",
+    "author": "J. D. Salinger",
+    "cover": {"url": "https://i.imgur.com/ES5BTj0.jpg", "x": 307, "y": 499},
+    "tags": ["Essentials"]
+  },
+  {
+    "title": "Book Thief",
+    "author": "Markus Zusak",
+    "cover": {"url": "https://i.imgur.com/p7XuIWw.jpg", "x": 319, "y": 499},
+    "tags": ["Essentials"]
   }
 ]
