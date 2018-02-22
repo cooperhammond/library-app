@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { Toolbar } from 'react-native-material-ui';
+import { CatalogList } from './CatalogList'
 
 
 class Catalog extends Component {
@@ -45,6 +46,7 @@ class Catalog extends Component {
             data={this.state.catalog}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
+            
             renderItem={({item}) => {
 
               var height = 300
@@ -74,35 +76,3 @@ class Catalog extends Component {
 }
 
 export default Catalog;
-
-
-/*
-
-<FlatList
-  data={this.state.catalog}
-  horizontal={true}
-  renderItem={({item}) => {
-    return (
-      <ListItem
-        divider={true}
-        numberOfLines="dynamic"
-        onPress={() => {alert("You pressed: " + item.title )}}
-        centerElement={
-
-          <View>
-            <Image
-              source={{uri: item.cover.url}}
-              style={{
-                width: item.cover.x,
-                height: item.cover.y
-              }}
-            />
-            <Text>{item.title}</Text>
-          </View>
-
-        }
-      />
-    )
-  }}
-/>
-*/
