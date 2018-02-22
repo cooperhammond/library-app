@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 
 import { Toolbar } from 'react-native-material-ui';
-import { CatalogList } from './CatalogList'
+
+import CatalogList from './CatalogList'
 
 
 class Catalog extends Component {
@@ -21,10 +22,6 @@ class Catalog extends Component {
       searchInput: "",
       catalog: require('../../../assets/data/catalog.json')
     };
-
-    this.state.catalog.forEach((book, i) => {
-      book.key = i + 1;
-    });
 
   }
 
@@ -42,31 +39,9 @@ class Catalog extends Component {
         />
 
         <ScrollView>
-          <FlatList
-            data={this.state.catalog}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            
-            renderItem={({item}) => {
 
-              var height = 300
-              var width = height / (item.cover.y / item.cover.x)
-
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.3}
-                  onPress={() => alert("You pressed on: " + item.title)}
-                >
-                  <Image
-                    source={{uri: item.cover.url}}
-                    style={{
-                      height: height,
-                      width: width,
-                    }}
-                  />
-                </TouchableOpacity>
-              )
-            }}
+          <CatalogList
+            catalog={this.state.catalog}
           />
 
         </ScrollView>

@@ -6,38 +6,53 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { PropTypes } from 'prop-types';
+
+
+const propTypes = {
+    catalog: PropTypes.array.isRequired,
+    height: PropTypes.number,
+};
+
+const defaultProps = {
+  catalog: null,
+  height: 300,
+}
+
 class CatalogList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      catalog: this.props.catalog
-    };
-
-    this.state.catalog.forEach((book, i) => {
+    this.props.catalog.forEach((book, i) => {
       book.key = i + 1;
     });
 
+    this.handlePress.bind(this);
+
+  }
+
+  handlePress = (title) => {
+    alert("You pressed " + title);
   }
 
   render() {
     return(
       <FlatList
-        data={this.state.catalog}
+        data={this.props.catalog}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-            
+
         renderItem={({item}) => {
 
-          var height = 300;
+          var height = this.props.height;
           var width = height / (item.cover.y / item.cover.x);
 
           return (
             <TouchableOpacity
               activeOpacity={0.3}
-              onPress={() => alert("You pressed on: " + item.title)}
+              onPress={() => this.handlePress(item.title)}
             >
-              
+
               <Image
                 source={{uri: item.cover.url}}
                 style={{
@@ -45,7 +60,7 @@ class CatalogList extends Component {
                   width: width,
                 }}
               />
-                
+
             </TouchableOpacity>
           );
         }}
@@ -53,5 +68,9 @@ class CatalogList extends Component {
     );
   }
 }
+
+CatalogList.propTypes = propTypes;
+
+CatalogList.defaultProps = defaultProps;
 
 export default CatalogList;
