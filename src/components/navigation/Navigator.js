@@ -10,6 +10,7 @@ import Container from '../helpers/Container';
 
 import Catalog from '../catalog/Catalog';
 import Login from '../profile/Login'
+import Map from '../map/Map'
 
 import {
   Toolbar,
@@ -45,9 +46,14 @@ class Navigator extends Component {
           content: <Catalog />
         },
         {
-          key: "Checked Out",
+          key: "Yours",
           icon: "playlist-add-check",
-          content: <Text>Checked Out</Text>
+          content: <Text>Checked Out | Reserved</Text>
+        },
+        {
+          key: "Map",
+          icon: "map",
+          content: <Map />
         },
         {
           key: "Profile",
