@@ -8,6 +8,8 @@ https://github.com/leecade/react-native-swiper#installation
 
 https://github.com/n4kz/react-native-material-textfield
 
+https://reactnavigation.org/docs/params.html
+
 http://www.fbla-pbl.org/competitive-event/mobile-application-development-fbla/
 
 # Overview

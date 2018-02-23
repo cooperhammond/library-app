@@ -4,9 +4,12 @@ import {
   FlatList, ScrollView,
   Image,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 
 import { PropTypes } from 'prop-types';
+
+import { Dialog, DialogDefaultActions } from 'react-native-material-ui';
 
 
 const propTypes = {
@@ -32,8 +35,11 @@ class CatalogList extends Component {
 
   }
 
-  handlePress = (title) => {
-    alert("You pressed " + title);
+  handlePress = (item) => {
+    this.props.navigation.navigate('CheckOutScreen', {
+      navigation: this.props.navigation,
+      item: item
+    })
   }
 
   render() {
@@ -52,7 +58,7 @@ class CatalogList extends Component {
           return (
             <TouchableOpacity
               activeOpacity={0.3}
-              onPress={() => this.handlePress(item.title)}
+              onPress={() => this.handlePress(item)}
             >
 
               <Image

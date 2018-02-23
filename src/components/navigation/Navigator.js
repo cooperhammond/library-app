@@ -9,14 +9,17 @@ import {
 import Container from '../helpers/Container';
 
 import Catalog from '../catalog/Catalog';
-import Login from '../profile/Login'
-import Map from '../map/Map'
+import CheckOut from '../catalog/CheckOut';
+import Login from '../profile/Login';
+import Map from '../map/Map';
 
 import {
   Toolbar,
   BottomNavigation,
   Icon
 } from 'react-native-material-ui';
+
+import { StackNavigator } from 'react-navigation';
 
 class ContentRenderer extends Component {
   constructor(props) {
@@ -43,7 +46,9 @@ class Navigator extends Component {
         {
           key: "Browse",
           icon: "local-library",
-          content: <Catalog />
+          content: <Catalog 
+            navigation={RootStack} 
+          />
         },
         {
           key: "Yours",
@@ -95,4 +100,18 @@ class Navigator extends Component {
   };
 }
 
-export default Navigator;
+const RootStack = StackNavigator(
+  {
+    NavigatorScreen: {
+      screen: Navigator,
+    },
+    CheckOutScreen: {
+      screen: CheckOut,
+    },
+  },
+  {
+    initialRouteName: 'NavigatorScreen',
+  }
+);
+
+export default RootStack;

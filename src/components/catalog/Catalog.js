@@ -10,7 +10,6 @@ import { Toolbar } from 'react-native-material-ui';
 
 import CatalogList from './CatalogList'
 
-
 class Catalog extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +28,8 @@ class Catalog extends Component {
       item.tags.push("All");
     });
 
-    var tags = [];
 
+    var tags = [];
     // Get all tags from the catalog
     tags = [].concat.apply([], this.state.catalog.map((item) => item.tags));
     // Remove duplicates
@@ -50,6 +49,7 @@ class Catalog extends Component {
           <Text>{Object.keys(tags[i])[0]}</Text>
           <CatalogList
             catalog={tags[i][Object.keys(tags[i])[0]]}
+            navigation={this.props.navigation}
           />
         </View>
       )
@@ -83,7 +83,7 @@ class Catalog extends Component {
           }}
         />
 
-        {/* In order to scroll through multiple list from different tags */}
+        {/* In order to scroll through multiple lists from different tags */}
         <ScrollView>
 
           {this.state.catalogs}
