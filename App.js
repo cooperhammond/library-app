@@ -20,7 +20,7 @@ toolbar: {}
 const uiTheme = {
   palette: {
       primaryColor: COLOR.blue500,
-      accentColor: COLOR.red200,
+      accentColor: COLOR.green500,
   },
   toolbar: {
       container: {

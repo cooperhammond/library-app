@@ -1,23 +1,39 @@
 import React, { Component } from 'react';
 
-import { 
+import {
   Text,
   ScrollView,
-  View
+  View,
+  StyleSheet,
+  Image
 } from 'react-native';
 
 import { PropTypes } from 'prop-types';
 
-import { 
-  Dialog, 
-  DialogDefaultActions,
+import {
   Toolbar,
+  Button
 } from 'react-native-material-ui';
 
 
+const styles = StyleSheet.create({
+    rowContainer: {
+        margin: 8,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    button: {
+      marginHorizontal: 8,
+    },
+    text: {
+      fontSize: 20,
+      textAlign: 'center',
+    }
+});
+
 const propTypes = {
 
-    
+
 };
 
 const defaultProps = {
@@ -29,7 +45,11 @@ class CheckOut extends Component {
   constructor(props) {
     super(props);
 
-    
+    const { params } = this.props.navigation.state;
+
+    this.state = {
+      item: params ? params.item : null,
+    }
 
   }
 
@@ -37,27 +57,49 @@ class CheckOut extends Component {
   render() {
     return(
       <View>
+
         <Toolbar
           leftElement="arrow-back"
           onLeftElementPress={() => this.props.navigation.goBack()}
-          centerElement={this.props.item.title}
+          centerElement={this.state.item.title}
         />
+
         <ScrollView>
-        <Dialog>
-          <Dialog.Title><Text>Hello world</Text></Dialog.Title>
-          <Dialog.Content>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Text>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <DialogDefaultActions
-               actions={['Check Out', 'Reserve']}
-               onActionPress={() => {}}
-            />
-          </Dialog.Actions>
-        </Dialog>
+
+          <Image
+            source={{uri: this.state.item.cover.url}}
+            resizeMode={'cover'}
+            style={{ width: '100%', height: 300 }}
+          />
+
+          <Text style={styles.text}>
+            <Text style={{fontWeight: 'bold'}}>{this.state.item.title}</Text>
+            {' '}by{' '}
+            <Text style={{fontStyle: 'italic'}}>{this.state.item.author}</Text>
+          </Text>
+
+          <View style={styles.rowContainer}>
+            <View style={styles.button}>
+              <Button
+                raised
+                accent
+                text="Check Out"
+                icon="done"
+              />
+            </View>
+
+            <View style={styles.button}>
+              <Button
+                raised
+                accent
+                text="Reserve"
+                icon="playlist-add"
+              />
+            </View>
+          </View>
+
         </ScrollView>
+
       </View>
     );
   }

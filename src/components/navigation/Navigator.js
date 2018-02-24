@@ -21,6 +21,7 @@ import {
 
 import { StackNavigator } from 'react-navigation';
 
+
 class ContentRenderer extends Component {
   constructor(props) {
     super(props);
@@ -29,39 +30,44 @@ class ContentRenderer extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        {this.props.state.active[1]}
+        {this.props.state.buttons[this.props.state.active].content}
       </View>
     )
   }
 }
+
 
 class Navigator extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      active: ["Browse", <Catalog />],
+      active: "0",
 
       buttons: [
         {
-          key: "Browse",
+          key: "0",
+          label: "Browse",
           icon: "local-library",
-          content: <Catalog 
-            navigation={RootStack} 
+          content: <Catalog
+            navigation={this.props.navigation}
           />
         },
         {
-          key: "Yours",
+          key: "1",
+          label: "Yours",
           icon: "playlist-add-check",
           content: <Text>Checked Out | Reserved</Text>
         },
         {
-          key: "Map",
+          key: "2",
+          label: "Map",
           icon: "map",
           content: <Map />
         },
         {
-          key: "Profile",
+          key: "3",
+          label: "Profile",
           icon: "account-circle",
           content: <Login />
         },
@@ -73,9 +79,9 @@ class Navigator extends Component {
         <BottomNavigation.Action
           key={button.key}
           icon={button.icon}
-          label={button.key}
+          label={button.label}
           onPress={() => {
-            this.setState({active: [button.key, button.content]})
+            this.setState({active: button.key})
           }}
         />
       )
@@ -90,7 +96,7 @@ class Navigator extends Component {
 
         <ContentRenderer state={this.state} />
 
-        <BottomNavigation active={this.state.active[0]} >
+        <BottomNavigation active={this.state.active} >
 
           {this.buttons}
 
@@ -99,6 +105,7 @@ class Navigator extends Component {
     );
   };
 }
+
 
 const RootStack = StackNavigator(
   {
@@ -111,7 +118,10 @@ const RootStack = StackNavigator(
   },
   {
     initialRouteName: 'NavigatorScreen',
-  }
+    navigationOptions: {
+      header: null
+    }
+  },
 );
 
 export default RootStack;

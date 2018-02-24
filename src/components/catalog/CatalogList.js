@@ -31,7 +31,7 @@ class CatalogList extends Component {
       item.key = i + 1;
     });
 
-    this.handlePress.bind(this);
+    this.handlePress = this.handlePress.bind(this);
 
   }
 
