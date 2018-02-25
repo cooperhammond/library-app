@@ -14,8 +14,8 @@ class Catalog extends Component {
   constructor(props) {
     super(props);
 
-    this.onSubmitEditing.bind(this);
-    this.filterCatalog.bind(this);
+    this.onSubmitEditing = this.onSubmitEditing.bind(this);
+    this.onSubmitEditing = this.filterCatalog.bind(this);
 
     this.state = {
       searchInput: "",

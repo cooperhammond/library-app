@@ -30,3 +30,18 @@ Topic: Develop an app to manage the issuance of books and to provide other infor
  - Applications may deploy from a smartphone, tablet, or both, but must be smartphone deployable.
  - Applications do not need to be available for download from a digital-distribution multimedia-content service.
  - The app should be shown to the judges.
+
+## AsyncStorage Guidelines
+
+Checked out books are in the async key `checkout`:
+```
+{
+  <title>: <true | false>
+}
+```
+Reserved books are in the async key `reserve`:
+```
+{
+  <title>: <true | false>
+}
+```

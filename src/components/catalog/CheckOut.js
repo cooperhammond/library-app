@@ -5,7 +5,7 @@ import {
   ScrollView,
   View,
   StyleSheet,
-  Image
+  Image,
 } from 'react-native';
 
 import { PropTypes } from 'prop-types';
@@ -14,6 +14,8 @@ import {
   Toolbar,
   Button
 } from 'react-native-material-ui';
+
+import easyAsync from '../helpers/easyAsync'
 
 
 const styles = StyleSheet.create({
@@ -31,15 +33,6 @@ const styles = StyleSheet.create({
     }
 });
 
-const propTypes = {
-
-
-};
-
-const defaultProps = {
-
-
-}
 
 class CheckOut extends Component {
   constructor(props) {
@@ -51,6 +44,32 @@ class CheckOut extends Component {
       item: params ? params.item : null,
     }
 
+    // this.handleButtonPress = this.handleButtonPress.bind(this)
+    this.buttonType = this.buttonType.bind(this)
+  }
+
+  handleButtonPress = (type) => {
+    easyAsync.setItem(type, easyAsync.getItem[this.state.item.title])
+  }
+
+  buttonType = (type) => {
+    let value = easyAsync.getItem(type)[this.state.item.title]
+    let text = "Else"
+
+    if (value != null || value != true) {
+      let text = "Return"
+    } else {
+      let text = "Check Out"
+    }
+
+    return (
+      <Button
+        raised
+        accent
+        text={text}
+        icon="done"
+      />
+    );
   }
 
 
@@ -80,12 +99,7 @@ class CheckOut extends Component {
 
           <View style={styles.rowContainer}>
             <View style={styles.button}>
-              <Button
-                raised
-                accent
-                text="Check Out"
-                icon="done"
-              />
+              {this.buttonType("checkout")}
             </View>
 
             <View style={styles.button}>
@@ -105,8 +119,5 @@ class CheckOut extends Component {
   }
 }
 
-// CheckOut.propTypes = propTypes;
-
-// CheckOut.defaultProps = defaultProps;
 
 export default CheckOut;
