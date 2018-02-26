@@ -45,3 +45,9 @@ Reserved books are in the async key `reserve`:
   <title>: <true | false>
 }
 ```
+Whether the user is logged in or not:
+```
+{
+  "loggedIn": <username | false>
+}
+```

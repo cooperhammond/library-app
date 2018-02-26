@@ -1,10 +1,4 @@
-[
-  {
-    "username": "cooper.hammond",
-    "password": "0123"
-  },
-  {
-    "username": "ethan.hunter",
-    "password": "9876"
-  }
-]
+{
+  "cooper.hammond": "0123",
+  "ethan.hunter": "9876"
+}

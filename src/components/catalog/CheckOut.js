@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 import {
   Text,
@@ -7,8 +8,6 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-
-import { PropTypes } from 'prop-types';
 
 import {
   Toolbar,
@@ -19,18 +18,18 @@ import easyAsync from '../helpers/easyAsync'
 
 
 const styles = StyleSheet.create({
-    rowContainer: {
-        margin: 8,
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    button: {
-      marginHorizontal: 8,
-    },
-    text: {
-      fontSize: 20,
-      textAlign: 'center',
-    }
+  rowContainer: {
+    margin: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  button: {
+    marginHorizontal: 8,
+  },
+  text: {
+    fontSize: 20,
+    textAlign: 'center',
+  }
 });
 
 
@@ -49,18 +48,16 @@ class CheckOut extends Component {
   }
 
   handleButtonPress = (type) => {
-    easyAsync.setItem(type, easyAsync.getItem[this.state.item.title])
+    easyAsync.setItem(type, y)
   }
 
   buttonType = (type) => {
     let value = easyAsync.getItem(type)[this.state.item.title]
-    let text = "Else"
+    let text = "Check Out"
 
-    if (value != null || value != true) {
-      let text = "Return"
-    } else {
-      let text = "Check Out"
-    }
+    //if (value != null || value != true) {
+    //  text = "Return"
+    //}
 
     return (
       <Button
