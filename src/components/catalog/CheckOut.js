@@ -7,18 +7,17 @@ import {
   View,
   StyleSheet,
   Image,
+  Share,
 } from 'react-native';
 
-import {
-  Toolbar,
-  Button
-} from 'react-native-material-ui';
+import { Toolbar } from 'react-native-material-ui';
 
 import {
   CheckOutButton,
   ReturnButton,
   ReserveButton,
-  UnreserveButton
+  UnreserveButton,
+  ShareButton,
 } from './Buttons'
 
 import easyAsync from '../helpers/easyAsync';
@@ -52,18 +51,19 @@ class CheckOut extends Component {
       checkedOut: null,
       reserved: null,
       user: null
-    }
+    };
 
-    this.getUser = this.getUser.bind(this)
-    this.updateItemStatus = this.updateItemStatus.bind(this)
-    this.handleCheckOut = this.handleCheckOut.bind(this)
-    this.handleReturn = this.handleReturn.bind(this)
-    this.handleReserve = this.handleReserve.bind(this)
-    this.handleUnreserve = this.handleUnreserve.bind(this)
+    this.getUser = this.getUser.bind(this);
+    this.updateItemStatus = this.updateItemStatus.bind(this);
+    this.handleCheckOut = this.handleCheckOut.bind(this);
+    this.handleReturn = this.handleReturn.bind(this);
+    this.handleReserve = this.handleReserve.bind(this);
+    this.handleUnreserve = this.handleUnreserve.bind(this);
+    this.handleShare = this.handleShare.bind(this)
 
-    this.getUser()
-    this.updateItemStatus()
-  };
+    this.getUser();
+    this.updateItemStatus();
+  }
 
   getUser = () => {
     easyAsync.getItem("loggedIn").then((value) => {
@@ -77,57 +77,64 @@ class CheckOut extends Component {
     });
     easyAsync.getItem("reserved:" + this.state.title).then((value) => {
       this.setState({reserved: value});
-    })
+    });
   };
 
   handleCheckOut = () => {
-    this.setState({checkedOut: this.state.user});
-    easyAsync.setItem("checkedOut:" + this.state.title, this.state.checkedOut)
+    easyAsync.setItem("checkedOut:" + this.state.title, this.state.user)
     .then(() => this.updateItemStatus());
   };
 
   handleReturn = () => {
-    this.setState({checkedOut: null});
-    easyAsync.setItem("checkedOut:" + this.state.title, this.state.checkedOut)
+    easyAsync.setItem("checkedOut:" + this.state.title, null)
     .then(() => this.updateItemStatus());
   };
 
   handleReserve = () => {
-    this.setState({reserved: this.state.user});
-    easyAsync.setItem("reserved:" + this.state.title, this.state.reserved)
+    easyAsync.setItem("reserved:" + this.state.title, this.state.user)
     .then(() => this.updateItemStatus());
   };
 
   handleUnreserve = () => {
-    this.setState({reserved: null});
-    easyAsync.setItem("reserved:" + this.state.title, this.state.reserved)
+    easyAsync.setItem("reserved:" + this.state.title, null)
     .then(() => this.updateItemStatus());
+  };
+  
+  handleShare = () => {
+    Share.share({
+      message: 'I found the book "' + this.state.title + '" through this library app: https://github.com/kepoorhampond/library-app',
+      url: 'https://github.com/kepoorhampond/library-app',
+      title: 'Share this book!'
+    }, {
+      // Android only:
+      dialogTitle: 'Share "' + this.state.title + '" by ' + this.state.item.author,
+    })
   };
 
 
   render() {
-    let checkOutButton = <Text>Something went wrong.</Text>
+    let checkOutButton = <Text>Something went wrong.</Text>;
     if (this.state.checkedOut == this.state.user) {
       // You have the book and can return it.
-      checkOutButton = <ReturnButton onPress={this.handleReturn} />
+      checkOutButton = <ReturnButton onPress={this.handleReturn} />;
     } else if (this.state.checkedOut != this.state.user && this.state.checkedOut != null) {
       // Somebody else has the book so you can't check it out/
-      checkOutButton = <CheckOutButton disabled onPress={null} />
+      checkOutButton = <CheckOutButton disabled onPress={null} />;
     } else {
       // The book is free to check out.
-      checkOutButton = <CheckOutButton onPress={this.handleCheckOut} />
+      checkOutButton = <CheckOutButton onPress={this.handleCheckOut} />;
     }
 
-    let reserveButton = <Text>Something went wrong.</Text>
+    let reserveButton = <Text>Something went wrong.</Text>;
     if (this.state.reserved == this.state.user) {
       // You have the book reserved and you can unreserve it.
-      reserveButton = <UnreserveButton onPress={this.handleUnreserve} />
+      reserveButton = <UnreserveButton onPress={this.handleUnreserve} />;
     } else if (this.state.reserved != this.state.user && this.state.reserved != null) {
       // Somebody else has the book reserved so you can't.
-      reserveButton = <ReserveButton disabled onPress={null} />
+      reserveButton = <ReserveButton disabled onPress={null} />;
     } else {
       // The book is free to reserve.
-      reserveButton = <ReserveButton onPress={this.handleReserve} />
+      reserveButton = <ReserveButton onPress={this.handleReserve} />;
     }
 
     return(
@@ -160,6 +167,12 @@ class CheckOut extends Component {
 
             <View style={styles.button}>
               {reserveButton}
+            </View>
+          </View>
+          
+          <View style={styles.rowContainer}>
+            <View style={styles.button}>
+              <ShareButton onPress={this.handleShare} />
             </View>
           </View>
 
