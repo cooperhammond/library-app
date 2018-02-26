@@ -55,6 +55,7 @@ class CheckOut extends Component {
     }
 
     this.getUser = this.getUser.bind(this)
+    this.pullItemStatus = this.pullItemStatus.bind(this)
     this.updateItemStatus = this.updateItemStatus.bind(this)
     this.handleCheckOut = this.handleCheckOut.bind(this)
     this.handleReturn = this.handleReturn.bind(this)
@@ -62,7 +63,7 @@ class CheckOut extends Component {
     this.handleUnreserve = this.handleUnreserve.bind(this)
 
     this.getUser()
-    this.updateItemStatus()
+    this.pullItemStatus()
   };
 
   getUser = () => {
@@ -71,37 +72,38 @@ class CheckOut extends Component {
     });
   };
 
-  updateItemStatus = () => {
+  pullItemStatus = () => {
     easyAsync.getItem("checkedOut:" + this.state.title).then((value) => {
       this.setState({checkedOut: value});
     });
     easyAsync.getItem("reserved:" + this.state.title).then((value) => {
       this.setState({reserved: value});
     })
+  }
+
+  updateItemStatus = () => {
+    easyAsync.setItem("checkedOut:" + this.state.title, this.state.checkedOut)
+    easyAsync.setItem("reserved:" + this.state.title, this.state.reserved)
   };
 
   handleCheckOut = () => {
     this.setState({checkedOut: this.state.user});
-    easyAsync.setItem("checkedOut:" + this.state.title, this.state.checkedOut)
-    .then(() => this.updateItemStatus());
+    this.updateItemStatus();
   };
 
   handleReturn = () => {
     this.setState({checkedOut: null});
-    easyAsync.setItem("checkedOut:" + this.state.title, this.state.checkedOut)
-    .then(() => this.updateItemStatus());
+    this.updateItemStatus();
   };
 
   handleReserve = () => {
     this.setState({reserved: this.state.user});
-    easyAsync.setItem("reserved:" + this.state.title, this.state.reserved)
-    .then(() => this.updateItemStatus());
+    this.updateItemStatus();
   };
 
   handleUnreserve = () => {
     this.setState({reserved: null});
-    easyAsync.setItem("reserved:" + this.state.title, this.state.reserved)
-    .then(() => this.updateItemStatus());
+    this.updateItemStatus();
   };
 
 
