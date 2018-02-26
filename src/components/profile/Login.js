@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  Alert
 } from 'react-native';
 
 import {
@@ -14,6 +15,7 @@ import {
 } from 'react-native-material-ui';
 
 import { TextField } from 'react-native-material-textfield';
+import Mailer from 'react-native-mail';
 import easyAsync from '../helpers/easyAsync';
 
 
@@ -59,6 +61,18 @@ const LogoutButton = (props) => {
   );
 }
 
+const ShareBug = (props) => {
+  return (
+    <Button
+      raised
+      accent
+      text="Found a Bug? Press me!"
+      icon="contact-mail"
+      onPress={props.onPress}
+    />
+  );
+}
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -68,16 +82,17 @@ class Login extends Component {
       username: '',
       password: '',
       logins: require('../../../assets/data/logins.json'),
-    }
+    };
 
-    this.loggedIn = this.loggedIn.bind(this)
+    this.loggedIn = this.loggedIn.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleUsername = this.handleUsername.bind(this)
-    this.handlePassword = this.handlePassword.bind(this)
+    this.handleUsername = this.handleUsername.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleBug = this.handleBug.bind(this)
 
-    this.loggedIn()
-  };
+    this.loggedIn();
+  }
 
   loggedIn = () => {
     easyAsync.getItem("loggedIn").then((value) => {
@@ -96,28 +111,65 @@ class Login extends Component {
 
     if (this.state.logins[username] == password) {
 
-      easyAsync.setItem("loggedIn", username)
-      this.loggedIn()
-      alert("Successfully logged in as: " + username)
+      easyAsync.setItem("loggedIn", username);
+      this.loggedIn();
+      alert("Successfully logged in as: " + username);
 
     } else {
-      alert("Incorrect username or password.")
+      alert("Incorrect username or password.");
     }
   };
 
   handleUsername = (text) => {
-    this.setState({ username: text })
+    this.setState({ username: text });
   };
 
   handlePassword = (text) => {
-    this.setState({ password: text })
+    this.setState({ password: text });
   };
+  
+  handleBug = () => {
+    Mailer.mail({
+      subject: 'need help',
+      recipients: ['support@example.com'],
+      ccRecipients: ['supportCC@example.com'],
+      bccRecipients: ['supportBCC@example.com'],
+      body: '<b>A Bold Body</b>',
+      isHTML: true,
+      attachment: {
+        path: '',  // The absolute path of the file from which to read data.
+        type: '',   // Mime Type: jpg, png, doc, ppt, html, pdf
+        name: '',   // Optional: Custom filename for attachment
+      }
+    }, (error, event) => {
+      Alert.alert(
+        error,
+        event,
+        [
+          {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+          {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+        ],
+        { cancelable: true }
+      )
+    });
+  }
 
 
   render() {
+    
+    let label = "Profile";
+
+    let statusDependentData = (
+      <View>
+        <ShareBug onPress={this.handleBug} />
+      </View>
+    );
+
+    let button = <LogoutButton onPress={this.handleLogout} />;
+    
     if (this.state.loggedIn == false) { // If not logged in
 
-      label = "Login"
+      label = "Login";
 
       statusDependentData = (
         <View>
@@ -136,22 +188,9 @@ class Login extends Component {
             onSubmitEditing={this.handleLogin}
           />
         </View>
-      )
+      );
 
-      button = <LoginButton onPress={this.handleLogin} />
-
-    } else {
-
-      label = "Profile"
-
-      statusDependentData = (
-        <View>
-
-        </View>
-      )
-
-      button = <LogoutButton onPress={this.handleLogout} />
-
+      button = <LoginButton onPress={this.handleLogin} />;
     }
 
     return (
@@ -171,8 +210,8 @@ class Login extends Component {
           </View>
         </View>
       </View>
-    )
+    );
   }
-};
+}
 
 export default Login;

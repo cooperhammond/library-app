@@ -55,9 +55,21 @@ const UnreserveButton = (props) => {
   );
 }
 
+const ShareButton = (props) => {
+  return (
+    <Button
+      raised
+      text="Share"
+      icon="share"
+      onPress={props.onPress}
+    />
+  );
+}
+
 export {
   CheckOutButton,
   ReturnButton,
   ReserveButton,
   UnreserveButton,
+  ShareButton
 };

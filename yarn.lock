@@ -4873,6 +4873,10 @@ react-native-image-view@^1.2.5:
   dependencies:
     react-native-root-modal "^2.2.0"
 
+react-native-mail@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-mail/-/react-native-mail-3.0.5.tgz#e497cb192a52102458f5e2a554dfc65d3fb635cb"
+
 react-native-maps@0.19.0:
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.19.0.tgz#ce94fad1cf360e335cb4338a68c95f791e869074"
