@@ -14,7 +14,14 @@ import {
   Button
 } from 'react-native-material-ui';
 
-import easyAsync from '../helpers/easyAsync'
+import {
+  CheckOutButton,
+  ReturnButton,
+  ReserveButton,
+  UnreserveButton
+} from './Buttons'
+
+import easyAsync from '../helpers/easyAsync';
 
 
 const styles = StyleSheet.create({
@@ -41,43 +48,95 @@ class CheckOut extends Component {
 
     this.state = {
       item: params ? params.item : null,
+      title: params ? params.item.title : null,
+      checkedOut: null,
+      reserved: null,
+      user: null
     }
 
-    // this.handleButtonPress = this.handleButtonPress.bind(this)
-    this.buttonType = this.buttonType.bind(this)
-  }
+    this.getUser = this.getUser.bind(this)
+    this.updateItemStatus = this.updateItemStatus.bind(this)
+    this.handleCheckOut = this.handleCheckOut.bind(this)
+    this.handleReturn = this.handleReturn.bind(this)
+    this.handleReserve = this.handleReserve.bind(this)
+    this.handleUnreserve = this.handleUnreserve.bind(this)
 
-  handleButtonPress = (type) => {
-    easyAsync.setItem(type, y)
-  }
+    this.getUser()
+    this.updateItemStatus()
+  };
 
-  buttonType = (type) => {
-    let value = easyAsync.getItem(type)[this.state.item.title]
-    let text = "Check Out"
+  getUser = () => {
+    easyAsync.getItem("loggedIn").then((value) => {
+      this.setState({user: value});
+    });
+  };
 
-    //if (value != null || value != true) {
-    //  text = "Return"
-    //}
+  updateItemStatus = () => {
+    easyAsync.getItem("checkedOut:" + this.state.title).then((value) => {
+      this.setState({checkedOut: value});
+    });
+    easyAsync.getItem("reserved:" + this.state.title).then((value) => {
+      this.setState({reserved: value});
+    })
+  };
 
-    return (
-      <Button
-        raised
-        accent
-        text={text}
-        icon="done"
-      />
-    );
-  }
+  handleCheckOut = () => {
+    this.setState({checkedOut: this.state.user});
+    easyAsync.setItem("checkedOut:" + this.state.title, this.state.checkedOut)
+    .then(() => this.updateItemStatus());
+  };
+
+  handleReturn = () => {
+    this.setState({checkedOut: null});
+    easyAsync.setItem("checkedOut:" + this.state.title, this.state.checkedOut)
+    .then(() => this.updateItemStatus());
+  };
+
+  handleReserve = () => {
+    this.setState({reserved: this.state.user});
+    easyAsync.setItem("reserved:" + this.state.title, this.state.reserved)
+    .then(() => this.updateItemStatus());
+  };
+
+  handleUnreserve = () => {
+    this.setState({reserved: null});
+    easyAsync.setItem("reserved:" + this.state.title, this.state.reserved)
+    .then(() => this.updateItemStatus());
+  };
 
 
   render() {
+    let checkOutButton = <Text>Something went wrong.</Text>
+    if (this.state.checkedOut == this.state.user) {
+      // You have the book and can return it.
+      checkOutButton = <ReturnButton onPress={this.handleReturn} />
+    } else if (this.state.checkedOut != this.state.user && this.state.checkedOut != null) {
+      // Somebody else has the book so you can't check it out/
+      checkOutButton = <CheckOutButton disabled onPress={null} />
+    } else {
+      // The book is free to check out.
+      checkOutButton = <CheckOutButton onPress={this.handleCheckOut} />
+    }
+
+    let reserveButton = <Text>Something went wrong.</Text>
+    if (this.state.reserved == this.state.user) {
+      // You have the book reserved and you can unreserve it.
+      reserveButton = <UnreserveButton onPress={this.handleUnreserve} />
+    } else if (this.state.reserved != this.state.user && this.state.reserved != null) {
+      // Somebody else has the book reserved so you can't.
+      reserveButton = <ReserveButton disabled onPress={null} />
+    } else {
+      // The book is free to reserve.
+      reserveButton = <ReserveButton onPress={this.handleReserve} />
+    }
+
     return(
       <View>
 
         <Toolbar
           leftElement="arrow-back"
           onLeftElementPress={() => this.props.navigation.goBack()}
-          centerElement={this.state.item.title}
+          centerElement={this.state.title}
         />
 
         <ScrollView>
@@ -96,16 +155,11 @@ class CheckOut extends Component {
 
           <View style={styles.rowContainer}>
             <View style={styles.button}>
-              {this.buttonType("checkout")}
+              {checkOutButton}
             </View>
 
             <View style={styles.button}>
-              <Button
-                raised
-                accent
-                text="Reserve"
-                icon="playlist-add"
-              />
+              {reserveButton}
             </View>
           </View>
 

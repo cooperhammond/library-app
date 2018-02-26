@@ -75,18 +75,20 @@ class Login extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleUsername = this.handleUsername.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
-  }
+
+    this.loggedIn()
+  };
 
   loggedIn = () => {
     easyAsync.getItem("loggedIn").then((value) => {
-      this.setState({loggedIn: value})
-    })
+      this.setState({loggedIn: value});
+    });
   };
 
   handleLogout = () => {
-    easyAsync.setItem("loggedIn", false)
-    this.loggedIn()
-  }
+    easyAsync.setItem("loggedIn", false);
+    this.loggedIn();
+  };
 
   handleLogin = () => {
     let username = this.state.username;
@@ -115,6 +117,8 @@ class Login extends Component {
   render() {
     if (this.state.loggedIn == false) { // If not logged in
 
+      label = "Login"
+
       statusDependentData = (
         <View>
           <TextField
@@ -138,6 +142,8 @@ class Login extends Component {
 
     } else {
 
+      label = "Profile"
+
       statusDependentData = (
         <View>
 
@@ -152,7 +158,7 @@ class Login extends Component {
       <View>
 
         <Toolbar
-          centerElement="Login"
+          centerElement={label}
         />
 
         <View style={styles.formContainter}>

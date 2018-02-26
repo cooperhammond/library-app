@@ -33,16 +33,16 @@ Topic: Develop an app to manage the issuance of books and to provide other infor
 
 ## AsyncStorage Guidelines
 
-Checked out books are in the async key `checkout`:
+Checked out books are in their corresponding key title:
 ```
 {
-  <title>: <true | false>
+  "checkedOut:<title>": <user> | null
 }
 ```
-Reserved books are in the async key `reserve`:
+Reserved books are in their corresponding key title:
 ```
 {
-  <title>: <true | false>
+  "reserved:<title>": <user> | null
 }
 ```
 Whether the user is logged in or not:
