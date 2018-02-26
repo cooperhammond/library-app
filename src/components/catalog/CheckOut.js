@@ -71,7 +71,7 @@ class CheckOut extends Component {
     });
   };
 
-  updateItemStatus = () => {
+  pullItemStatus = () => {
     easyAsync.getItem("checkedOut:" + this.state.title).then((value) => {
       this.setState({checkedOut: value});
     });
