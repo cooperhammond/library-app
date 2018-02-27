@@ -31,7 +31,6 @@ const ShareBug = (props) => {
   return (
     <Button
       raised
-      accent
       text="Found a Bug? Press me!"
       icon="contact-mail"
       onPress={props.onPress}

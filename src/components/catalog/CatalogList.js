@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import {
-  FlatList, ScrollView,
+  FlatList,
+  ScrollView,
   Image,
   TouchableOpacity,
   Text,
@@ -51,7 +52,7 @@ class CatalogList extends Component {
 
         renderItem={({item}) => {
 
-          // Retain aspect ration and scale the image to the defined height
+          // Retain aspect ratio and scale the image to the defined height
           var height = this.props.height;
           var width = height / (item.cover.y / item.cover.x);
 

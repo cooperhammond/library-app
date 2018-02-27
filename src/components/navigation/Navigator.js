@@ -10,8 +10,9 @@ import Container from '../helpers/Container';
 
 import Catalog from '../catalog/Catalog';
 import CheckOut from '../catalog/CheckOut';
-import Login from '../profile/Login';
+import Library from '../library/Library';
 import Map from '../map/Map';
+import Login from '../profile/Login';
 
 import {
   Toolbar,
@@ -57,7 +58,9 @@ class Navigator extends Component {
           key: "1",
           label: "Yours",
           icon: "playlist-add-check",
-          content: <Text>Checked Out | Reserved</Text>
+          content: <Library
+            navigation={this.props.navigation}
+          />
         },
         {
           key: "2",

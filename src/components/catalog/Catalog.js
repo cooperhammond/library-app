@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  ScrollView,
+  FlatList
 } from 'react-native';
 
 import { Toolbar } from 'react-native-material-ui';
@@ -27,7 +27,19 @@ class Catalog extends Component {
     this.state.catalog.forEach((item, i) => {
       item.tags.push("All");
     });
+  }
 
+  onSubmitEditing = () => {
+    alert("You searched for: " + this.state.searchInput);
+  }
+
+  filterCatalog = (tag) => {
+    return this.state.catalog.filter((item) => {
+      return item.tags.includes(tag)
+    });
+  }
+
+  render() {
 
     var tags = [];
     // Get all tags from the catalog
@@ -53,21 +65,8 @@ class Catalog extends Component {
           />
         </View>
       )
-    }
+    };
 
-  }
-
-  onSubmitEditing = () => {
-    alert("You searched for: " + this.state.searchInput);
-  }
-
-  filterCatalog = (tag) => {
-    return this.state.catalog.filter((item) => {
-      return item.tags.includes(tag)
-    });
-  }
-
-  render() {
     return(
       <View style={{
         flex: 1 // Fill the screen minus BottomNavigation bar
@@ -84,11 +83,13 @@ class Catalog extends Component {
         />
 
         {/* In order to scroll through multiple lists from different tags */}
-        <ScrollView>
 
-          {this.state.catalogs}
-
-        </ScrollView>
+        <FlatList
+          data={this.state.catalogs}
+          renderItem={({item}) => {
+            return (item)
+          }}
+        />
       </View>
     );
   }
