@@ -50,11 +50,11 @@ class CheckOut extends Component {
       title: params ? params.item.title : null,
       checkedOut: null,
       reserved: null,
-      user: null
+      user: false,
     };
 
     this.getUser = this.getUser.bind(this);
-    this.updateItemStatus = this.updateItemStatus.bind(this);
+    this.pullItemStatus = this.pullItemStatus.bind(this);
     this.handleCheckOut = this.handleCheckOut.bind(this);
     this.handleReturn = this.handleReturn.bind(this);
     this.handleReserve = this.handleReserve.bind(this);
@@ -62,7 +62,7 @@ class CheckOut extends Component {
     this.handleShare = this.handleShare.bind(this)
 
     this.getUser();
-    this.updateItemStatus();
+    this.pullItemStatus();
   }
 
   getUser = () => {
@@ -82,27 +82,27 @@ class CheckOut extends Component {
 
   handleCheckOut = () => {
     easyAsync.setItem("checkedOut:" + this.state.title, this.state.user)
-    .then(() => this.updateItemStatus());
+    .then(() => this.pullItemStatus());
   };
 
   handleReturn = () => {
     easyAsync.setItem("checkedOut:" + this.state.title, null)
-    .then(() => this.updateItemStatus());
+    .then(() => this.pullItemStatus());
   };
 
   handleReserve = () => {
     easyAsync.setItem("reserved:" + this.state.title, this.state.user)
-    .then(() => this.updateItemStatus());
+    .then(() => this.pullItemStatus());
   };
 
   handleUnreserve = () => {
     easyAsync.setItem("reserved:" + this.state.title, null)
-    .then(() => this.updateItemStatus());
+    .then(() => this.pullItemStatus());
   };
-  
+
   handleShare = () => {
     Share.share({
-      message: 'I found the book "' + this.state.title + '" through this library app: https://github.com/kepoorhampond/library-app',
+      message: 'I found the book "' + this.state.title + '" through this library app! https://github.com/kepoorhampond/library-app',
       url: 'https://github.com/kepoorhampond/library-app',
       title: 'Share this book!'
     }, {
@@ -169,7 +169,7 @@ class CheckOut extends Component {
               {reserveButton}
             </View>
           </View>
-          
+
           <View style={styles.rowContainer}>
             <View style={styles.button}>
               <ShareButton onPress={this.handleShare} />

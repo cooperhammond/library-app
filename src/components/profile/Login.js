@@ -15,7 +15,13 @@ import {
 } from 'react-native-material-ui';
 
 import { TextField } from 'react-native-material-textfield';
-import Mailer from 'react-native-mail';
+import Communications from 'react-native-communications';
+
+import {
+  LoginButton,
+  LogoutButton,
+  ShareBug,
+} from './Buttons'
 import easyAsync from '../helpers/easyAsync';
 
 
@@ -31,47 +37,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 20,
+    fontSize: 16,
     textAlign: 'center',
   }
 });
 
-
-const LoginButton = (props) => {
-  return (
-    <Button
-      raised
-      accent
-      text="Login"
-      icon="exit-to-app"
-      onPress={props.onPress}
-    />
-  );
-}
-
-const LogoutButton = (props) => {
-  return (
-    <Button
-      raised
-      accent
-      text="Logout"
-      icon="exit-to-app"
-      onPress={props.onPress}
-    />
-  );
-}
-
-const ShareBug = (props) => {
-  return (
-    <Button
-      raised
-      accent
-      text="Found a Bug? Press me!"
-      icon="contact-mail"
-      onPress={props.onPress}
-    />
-  );
-}
 
 class Login extends Component {
   constructor(props) {
@@ -127,46 +97,27 @@ class Login extends Component {
   handlePassword = (text) => {
     this.setState({ password: text });
   };
-  
+
   handleBug = () => {
-    Mailer.mail({
-      subject: 'need help',
-      recipients: ['support@example.com'],
-      ccRecipients: ['supportCC@example.com'],
-      bccRecipients: ['supportBCC@example.com'],
-      body: '<b>A Bold Body</b>',
-      isHTML: true,
-      attachment: {
-        path: '',  // The absolute path of the file from which to read data.
-        type: '',   // Mime Type: jpg, png, doc, ppt, html, pdf
-        name: '',   // Optional: Custom filename for attachment
-      }
-    }, (error, event) => {
-      Alert.alert(
-        error,
-        event,
-        [
-          {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
-          {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
-        ],
-        { cancelable: true }
-      )
-    });
-  }
+    Communications.email(
+      ['kepoorh@gmail.com'], // to
+      null, // cc
+      null, // bcc
+      "Bug Report", // Subject
+      // Body
+      "Hey, I want to report a bug! \n\n <Psst, enter your bug here!>"
+    )
+  };
 
 
   render() {
-    
+
     let label = "Profile";
 
-    let statusDependentData = (
-      <View>
-        <ShareBug onPress={this.handleBug} />
-      </View>
-    );
+    let statusDependentData = <Text style={styles.text}>You're logged in as {this.state.loggedIn}</Text>
 
     let button = <LogoutButton onPress={this.handleLogout} />;
-    
+
     if (this.state.loggedIn == false) { // If not logged in
 
       label = "Login";
@@ -204,10 +155,14 @@ class Login extends Component {
 
           {statusDependentData}
 
-
           <View style={styles.button}>
             {button}
           </View>
+
+          <View style={styles.button}>
+            <ShareBug onPress={this.handleBug} />
+          </View>
+
         </View>
       </View>
     );
