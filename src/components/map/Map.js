@@ -29,7 +29,7 @@ class Map extends Component {
           imageHeight={1080}
         />
       </View>
-    )
+    );
   }
 }
 

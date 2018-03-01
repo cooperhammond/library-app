@@ -6,15 +6,12 @@ import {
   View,
   StyleSheet,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 
 import {
   Toolbar,
   ListItem,
 } from 'react-native-material-ui';
-
-import { CheckOut } from '../catalog/CheckOut'
 
 import easyAsync from '../helpers/easyAsync';
 
@@ -51,7 +48,7 @@ class BookList extends Component {
         </View>
       );
     } else {
-      return(<View></View>)
+      return(<View></View>);
     }
   }
 }
@@ -180,7 +177,7 @@ class Library extends Component {
 
       </View>
     );
-  };
+  }
 }
 
 export default Library;

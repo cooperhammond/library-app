@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 
 import {
   FlatList,
-  ScrollView,
   Image,
   TouchableOpacity,
-  Text,
 } from 'react-native';
 
 import { PropTypes } from 'prop-types';
-
-import { Dialog, DialogDefaultActions } from 'react-native-material-ui';
 
 
 const propTypes = {
@@ -21,7 +17,7 @@ const propTypes = {
 const defaultProps = {
   catalog: null,
   height: 300,
-}
+};
 
 class CatalogList extends Component {
   constructor(props) {
@@ -40,8 +36,8 @@ class CatalogList extends Component {
     this.props.navigation.navigate('CheckOutScreen', {
       navigation: this.props.navigation,
       item: item
-    })
-  }
+    });
+  };
 
   render() {
     return(

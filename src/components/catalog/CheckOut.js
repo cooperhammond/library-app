@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
 
 import {
   Text,
@@ -18,10 +17,10 @@ import {
   ReserveButton,
   UnreserveButton,
   ShareButton,
-} from './Buttons'
+} from './Buttons';
 
 import easyAsync from '../helpers/easyAsync';
-import { setNotification } from '../helpers/notifications'
+import { setNotification } from '../helpers/notifications';
 
 
 const styles = StyleSheet.create({
@@ -87,7 +86,7 @@ class CheckOut extends Component {
     easyAsync.setItem("checkedOut:" + this.state.title, this.state.user)
     .then(() => this.pullItemStatus());
 
-    t = setNotification(this.state.checkedOutTime,
+    let t = setNotification(this.state.checkedOutTime,
       'Your book, "' + this.state.title + '" is due!');
     easyAsync.setItem("due:" + this.state.title, t);
   };
@@ -96,7 +95,7 @@ class CheckOut extends Component {
     easyAsync.setItem("checkedOut:" + this.state.title, null)
     .then(() => this.pullItemStatus());
 
-    easyAsync.setItem("due:" + this.state.title, null)
+    easyAsync.setItem("due:" + this.state.title, null);
   };
 
   handleReserve = () => {
@@ -117,7 +116,7 @@ class CheckOut extends Component {
     }, {
       // Android only:
       dialogTitle: 'Share "' + this.state.title + '" by ' + this.state.item.author,
-    })
+    });
   };
 
   signedInText = () => {

@@ -29,6 +29,6 @@ const easyAsync = {
     return await AsyncStorage.removeItem(key);
   }
 
-}
+};
 
 export default easyAsync;

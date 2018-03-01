@@ -15,13 +15,13 @@ const formatDate = (date) => {
   var year = date.getFullYear();
 
   return hours + ':' + minutes + ' - ' + day + ' ' + monthNames[monthIndex] + ' ' + year;
-}
+};
 
 console.log(formatDate(new Date()));
 
 const setNotification = (time, text) => {
   let t = new Date();
-  let s = t.getSeconds() + time
+  let s = t.getSeconds() + time;
   t.setSeconds(s);
 
   const schedulingOptions = {
@@ -44,9 +44,9 @@ const setNotification = (time, text) => {
 
 
 
-  return formatDate(t)
-}
+  return formatDate(t);
+};
 
 export {
   setNotification,
-}
+};

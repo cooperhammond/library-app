@@ -4,14 +4,12 @@ import { PropTypes } from 'prop-types';
 import {
   View,
   Text,
-  ScrollView,
   StyleSheet,
   Image
 } from 'react-native';
 
 import {
   Toolbar,
-  Button,
 } from 'react-native-material-ui';
 
 import { TextField } from 'react-native-material-textfield';
@@ -21,7 +19,8 @@ import {
   LoginButton,
   LogoutButton,
   ShareBug,
-} from './Buttons'
+} from './Buttons';
+
 import easyAsync from '../helpers/easyAsync';
 
 
@@ -59,7 +58,7 @@ class Login extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.handleBug = this.handleBug.bind(this)
+    this.handleBug = this.handleBug.bind(this);
 
     this.loggedIn();
   }
@@ -106,7 +105,7 @@ class Login extends Component {
       "Bug Report", // Subject
       // Body
       "Hey, I want to report a bug! \n\n <Psst, enter your bug here!>"
-    )
+    );
   };
 
 
@@ -114,7 +113,7 @@ class Login extends Component {
 
     let label = "Profile";
 
-    let statusDependentData = <Text style={styles.text}>You're logged in as {this.state.loggedIn}</Text>
+    let statusDependentData = <Text style={styles.text}>You're logged in as {this.state.loggedIn}</Text>;
 
     let button = <LogoutButton onPress={this.handleLogout} />;
 

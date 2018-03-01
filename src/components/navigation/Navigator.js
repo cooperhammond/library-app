@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 
 import {
   View,
-  Text,
   StatusBar
 } from 'react-native';
 
 import {
-  Toolbar,
   BottomNavigation,
-  Icon
 } from 'react-native-material-ui';
 
 import { StackNavigator } from 'react-navigation';
@@ -36,7 +33,7 @@ class ContentRenderer extends Component {
       <View style={{ flex: 1 }}>
         {this.props.state.buttons[this.props.state.active].content}
       </View>
-    )
+    );
   }
 }
 
@@ -87,10 +84,10 @@ class Navigator extends Component {
           icon={button.icon}
           label={button.label}
           onPress={() => {
-            this.setState({active: button.key})
+            this.setState({active: button.key});
           }}
         />
-      )
+      );
     });
 
     easyAsync.getItem("loggedIn").then((value) => {
@@ -99,7 +96,7 @@ class Navigator extends Component {
       }
     });
 
-  };
+  }
 
   render() {
     return (
@@ -115,7 +112,7 @@ class Navigator extends Component {
         </BottomNavigation>
       </Container>
     );
-  };
+  }
 }
 
 

@@ -13,7 +13,7 @@ const LoginButton = (props) => {
       onPress={props.onPress}
     />
   );
-}
+};
 
 const LogoutButton = (props) => {
   return (
@@ -25,7 +25,7 @@ const LogoutButton = (props) => {
       onPress={props.onPress}
     />
   );
-}
+};
 
 const ShareBug = (props) => {
   return (
@@ -36,7 +36,7 @@ const ShareBug = (props) => {
       onPress={props.onPress}
     />
   );
-}
+};
 
 export {
   LoginButton,
