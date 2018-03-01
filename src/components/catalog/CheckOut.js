@@ -89,6 +89,7 @@ class CheckOut extends Component {
     let t = setNotification(this.state.checkedOutTime,
       'Your book, "' + this.state.title + '" is due!');
     easyAsync.setItem("due:" + this.state.title, t);
+    alert('Your book, "' + this.state.title + '" will be due in 1 minute!')
   };
 
   handleReturn = () => {
