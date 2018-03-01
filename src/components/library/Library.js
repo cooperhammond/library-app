@@ -19,15 +19,11 @@ import { CheckOut } from '../catalog/CheckOut'
 import easyAsync from '../helpers/easyAsync';
 
 
-const containsObject = (obj, list) => {
-  var i;
-  for (i = 0; i < list.length; i++) {
-    if (list[i] === obj) {
-      return true;
-    }
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 16,
   }
-  return false;
-}
+});
 
 
 class Library extends Component {
@@ -65,28 +61,28 @@ class Library extends Component {
 
   updateMyBooks = () => {
     if (this.refs.default) { // Evade a warning
-      this.setState({checkedOut: []})
-      this.setState({reserved: []})
+      this.setState({checkedOut: []});
+      this.setState({reserved: []});
     }
 
     for (var i = 0; i < this.state.catalog.length; i++) {
-      let item = this.state.catalog[i]
+      let item = this.state.catalog[i];
 
       easyAsync.getItem("checkedOut:" + item.title).then((value) => {
         if (value == this.state.user) {
           this.setState({
             checkedOut: this.state.checkedOut.concat([item])
           });
-        };
+        }
       });
 
-      /*easyAsync.getItem("reserved:" + item.title).then((value) => {
+      easyAsync.getItem("reserved:" + item.title).then((value) => {
         if (value == this.state.user) {
           this.setState({
             reserved: this.state.reserved.concat([item])
           });
-        };
-      });*/
+        }
+      });
 
     }
   }
@@ -99,8 +95,23 @@ class Library extends Component {
           centerElement="My Books"
         />
 
+        <Text style={styles.text}>Checked Out</Text>
         <FlatList
           data={this.state.checkedOut}
+          renderItem={({item}) => {
+            return (
+              <ListItem
+                divider
+                centerElement={item.title}
+                onPress={() => this.handlePress(item)}
+              />
+            );
+          }}
+        />
+        
+        <Text style={styles.text}>Reserved</Text>
+        <FlatList
+          data={this.state.reserved}
           renderItem={({item}) => {
             return (
               <ListItem
