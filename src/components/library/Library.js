@@ -21,17 +21,47 @@ import easyAsync from '../helpers/easyAsync';
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 16,
+    fontSize: 20,
   }
 });
 
+class BookList extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
+  render() {
+    if (this.props.catalog.length > 0) {
+      return (
+        <View>
+          <Text style={styles.text}>{this.props.text}</Text>
+          <FlatList
+            data={this.props.catalog}
+            renderItem={({item}) => {
+              return (
+                <ListItem
+                  divider
+                  centerElement={item.title}
+                  onPress={() => this.props.onPress(item)}
+                />
+              );
+            }}
+          />
+        </View>
+      );
+    } else {
+      return(<View></View>)
+    }
+  }
+}
 
 class Library extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: null,
+      user: false,
       height: 400,
       catalog: require('../../../assets/data/catalog.json'),
       checkedOut: [],
@@ -41,6 +71,7 @@ class Library extends Component {
     this.getUser = this.getUser.bind(this);
     this.handlePress = this.handlePress.bind(this);
     this.updateMyBooks = this.updateMyBooks.bind(this);
+    this.renderer = this.renderer.bind(this);
 
     this.getUser();
     this.updateMyBooks();
@@ -85,7 +116,48 @@ class Library extends Component {
       });
 
     }
-  }
+  };
+
+  renderer = () => {
+    if (this.state.user != false) {
+      if (this.state.checkedOut.length > 0 || this.state.reserved.length > 0) {
+        return (
+          <View>
+            <BookList
+              catalog={this.state.checkedOut}
+              text="Checked Out"
+              onPress={this.handlePress}
+            />
+            <BookList
+              catalog={this.state.reserved}
+              text="Reserved"
+              onPress={this.handlePress}
+            />
+          </View>
+        );
+      } else {
+        return(
+          <Text style={{
+            fontSize: 20,
+            textAlign: 'center',
+            margin: 10,
+          }}>
+            (You don't have any books checked out or reserved!)
+          </Text>
+        );
+      }
+    } else {
+      return (
+        <Text style={{
+          fontSize: 20,
+          textAlign: 'center',
+          margin: 10,
+        }}>
+          (You're not logged in! You don't have any books!)
+        </Text>
+      );
+    }
+  };
 
   render() {
     return (
@@ -95,33 +167,8 @@ class Library extends Component {
           centerElement="My Books"
         />
 
-        <Text style={styles.text}>Checked Out</Text>
-        <FlatList
-          data={this.state.checkedOut}
-          renderItem={({item}) => {
-            return (
-              <ListItem
-                divider
-                centerElement={item.title}
-                onPress={() => this.handlePress(item)}
-              />
-            );
-          }}
-        />
-        
-        <Text style={styles.text}>Reserved</Text>
-        <FlatList
-          data={this.state.reserved}
-          renderItem={({item}) => {
-            return (
-              <ListItem
-                divider
-                centerElement={item.title}
-                onPress={() => this.handlePress(item)}
-              />
-            );
-          }}
-        />
+        {this.renderer()}
+
       </View>
     );
   };

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-import { View } from 'react-native';
+import {
+  View,
+  Text
+} from 'react-native';
 
 import ImageView from 'react-native-image-view';
 
@@ -12,6 +15,13 @@ class Map extends Component {
   render() {
     return (
       <View>
+        <Text style={{
+          fontSize: 20,
+          textAlign: 'center',
+          margin: 10,
+        }}>
+          (You just closed the map)
+        </Text>
         <ImageView
           source={require('../../../assets/img/map.png')}
           isVisible={true}
