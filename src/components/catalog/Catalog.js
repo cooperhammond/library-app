@@ -3,12 +3,24 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  FlatList
+  FlatList,
+  Image,
+  StyleSheet
 } from 'react-native';
 
 import { Toolbar } from 'react-native-material-ui';
 
 import CatalogList from './CatalogList'
+
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    margin: 10,
+  }
+});
+
+
 
 class Catalog extends Component {
   constructor(props) {
@@ -58,7 +70,7 @@ class Catalog extends Component {
     for (var i = 0; i < tags.length; i++) {
       this.state.catalogs.push(
         <View key={i}>
-          <Text>{Object.keys(tags[i])[0]}</Text>
+          <Text style={styles.text}>{Object.keys(tags[i])[0]}</Text>
           <CatalogList
             catalog={tags[i][Object.keys(tags[i])[0]]}
             navigation={this.props.navigation}
@@ -70,16 +82,19 @@ class Catalog extends Component {
     return(
       <View style={{
         flex: 1 // Fill the screen minus BottomNavigation bar
-       }}>
+      }}>
 
         <Toolbar
+          leftElement={
+            <Image
+              style={{
+                height: 35,
+                width: 35
+              }}
+              source={require('../../../assets/img/miskatonic.png')}
+            />
+          }
           centerElement="Catalog"
-          searchable={{
-            autoFocus: true,
-            placeholder: 'Search',
-            onChangeText: (text) => this.setState({searchInput: text}),
-            onSubmitEditing: this.onSubmitEditing,
-          }}
         />
 
         {/* In order to scroll through multiple lists from different tags */}

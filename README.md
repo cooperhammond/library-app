@@ -39,6 +39,12 @@ Checked out books are in their corresponding key title:
   "checkedOut:<title>": <user> | null
 }
 ```
+When books are due (format `Date()`):
+```
+{
+  "due:<title>": <number>
+}
+```
 Reserved books are in their corresponding key title:
 ```
 {

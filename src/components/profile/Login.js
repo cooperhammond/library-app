@@ -6,7 +6,7 @@ import {
   Text,
   ScrollView,
   StyleSheet,
-  Alert
+  Image
 } from 'react-native';
 
 import {
@@ -148,6 +148,15 @@ class Login extends Component {
       <View>
 
         <Toolbar
+          leftElement={
+            <Image
+              style={{
+                height: 35,
+                width: 35
+              }}
+              source={require('../../../assets/img/miskatonic.png')}
+            />
+          }
           centerElement={label}
         />
 

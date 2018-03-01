@@ -22,13 +22,13 @@ import easyAsync from '../helpers/easyAsync';
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
+    margin: 10,
   }
 });
 
 class BookList extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -164,6 +164,15 @@ class Library extends Component {
       <View ref="default">
 
         <Toolbar
+          leftElement={
+            <Image
+              style={{
+                height: 35,
+                width: 35
+              }}
+              source={require('../../../assets/img/miskatonic.png')}
+            />
+          }
           centerElement="My Books"
         />
 

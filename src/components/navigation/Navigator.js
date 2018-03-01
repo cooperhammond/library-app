@@ -6,6 +6,14 @@ import {
   StatusBar
 } from 'react-native';
 
+import {
+  Toolbar,
+  BottomNavigation,
+  Icon
+} from 'react-native-material-ui';
+
+import { StackNavigator } from 'react-navigation';
+
 import Container from '../helpers/Container';
 
 import Catalog from '../catalog/Catalog';
@@ -14,13 +22,8 @@ import Library from '../library/Library';
 import Map from '../map/Map';
 import Login from '../profile/Login';
 
-import {
-  Toolbar,
-  BottomNavigation,
-  Icon
-} from 'react-native-material-ui';
+import easyAsync from '../helpers/easyAsync';
 
-import { StackNavigator } from 'react-navigation';
 
 
 class ContentRenderer extends Component {
@@ -88,7 +91,13 @@ class Navigator extends Component {
           }}
         />
       )
-    })
+    });
+
+    easyAsync.getItem("loggedIn").then((value) => {
+      if (value == null) {
+        easyAsync.setItem("loggedIn", false);
+      }
+    });
 
   };
 

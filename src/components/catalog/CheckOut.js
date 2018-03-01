@@ -21,6 +21,7 @@ import {
 } from './Buttons'
 
 import easyAsync from '../helpers/easyAsync';
+import { setNotification } from '../helpers/notifications'
 
 
 const styles = StyleSheet.create({
@@ -51,6 +52,7 @@ class CheckOut extends Component {
       checkedOut: null,
       reserved: null,
       user: false,
+      checkedOutTime: 60, // 1 minute
     };
 
     this.getUser = this.getUser.bind(this);
@@ -59,7 +61,8 @@ class CheckOut extends Component {
     this.handleReturn = this.handleReturn.bind(this);
     this.handleReserve = this.handleReserve.bind(this);
     this.handleUnreserve = this.handleUnreserve.bind(this);
-    this.handleShare = this.handleShare.bind(this)
+    this.handleShare = this.handleShare.bind(this);
+    this.signedInText = this.signedInText.bind(this);
 
     this.getUser();
     this.pullItemStatus();
@@ -83,11 +86,17 @@ class CheckOut extends Component {
   handleCheckOut = () => {
     easyAsync.setItem("checkedOut:" + this.state.title, this.state.user)
     .then(() => this.pullItemStatus());
+
+    t = setNotification(this.state.checkedOutTime,
+      'Your book, "' + this.state.title + '" is due!');
+    easyAsync.setItem("due:" + this.state.title, t);
   };
 
   handleReturn = () => {
     easyAsync.setItem("checkedOut:" + this.state.title, null)
     .then(() => this.pullItemStatus());
+
+    easyAsync.setItem("due:" + this.state.title, null)
   };
 
   handleReserve = () => {
@@ -111,10 +120,25 @@ class CheckOut extends Component {
     })
   };
 
+  signedInText = () => {
+    if (this.state.user == false) {
+      return (
+        <Text style={styles.text}>
+          You're not signed in, you can't check out books!
+        </Text>
+      );
+    } else {
+      return (<Text></Text>);
+    }
+  }
+
 
   render() {
     let checkOutButton = <Text>Something went wrong.</Text>;
-    if (this.state.checkedOut == this.state.user) {
+    if (this.state.user == false) {
+      // You're not signed in.
+      checkOutButton = <CheckOutButton disabled onPress={null} />;
+    } else if (this.state.checkedOut == this.state.user) {
       // You have the book and can return it.
       checkOutButton = <ReturnButton onPress={this.handleReturn} />;
     } else if (this.state.checkedOut != this.state.user && this.state.checkedOut != null) {
@@ -126,7 +150,10 @@ class CheckOut extends Component {
     }
 
     let reserveButton = <Text>Something went wrong.</Text>;
-    if (this.state.reserved == this.state.user) {
+    if (this.state.user == false) {
+      // You're not signed in.
+      reserveButton = <ReserveButton disabled onPress={null} />;
+    } else if (this.state.reserved == this.state.user) {
       // You have the book reserved and you can unreserve it.
       reserveButton = <UnreserveButton onPress={this.handleUnreserve} />;
     } else if (this.state.reserved != this.state.user && this.state.reserved != null) {
@@ -169,6 +196,8 @@ class CheckOut extends Component {
               {reserveButton}
             </View>
           </View>
+
+          {this.signedInText()}
 
           <View style={styles.rowContainer}>
             <View style={styles.button}>
