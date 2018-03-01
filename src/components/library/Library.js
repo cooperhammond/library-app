@@ -16,6 +16,7 @@ import {
 import easyAsync from '../helpers/easyAsync';
 
 
+// Styles for this file
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
   }
 });
 
+// Booklist that can parse a book catalog dictionary
 class BookList extends Component {
   constructor(props) {
     super(props);
@@ -53,10 +55,12 @@ class BookList extends Component {
   }
 }
 
+
 class Library extends Component {
   constructor(props) {
     super(props);
 
+    // Set data into state
     this.state = {
       user: false,
       height: 400,
@@ -65,6 +69,7 @@ class Library extends Component {
       reserved: [],
     };
 
+    // Function definitions
     this.getUser = this.getUser.bind(this);
     this.handlePress = this.handlePress.bind(this);
     this.updateMyBooks = this.updateMyBooks.bind(this);
@@ -74,12 +79,14 @@ class Library extends Component {
     this.updateMyBooks();
   }
 
+  // sets user into state
   getUser = () => {
     easyAsync.getItem("loggedIn").then((value) => {
       this.setState({user: value});
     });
   };
 
+  // Navigates to the check out screen for the book pressed
   handlePress = (item) => {
     this.props.navigation.navigate('CheckOutScreen', {
       navigation: this.props.navigation,
@@ -88,11 +95,14 @@ class Library extends Component {
   };
 
   updateMyBooks = () => {
-    if (this.refs.default) { // Evade a warning
+    // Evade a warning with this handy code
+    if (this.refs.default) {
       this.setState({checkedOut: []});
       this.setState({reserved: []});
     }
 
+    // Iterate through the complete catalog and check which ones are checked
+    // out or reserved in the current user's name
     for (var i = 0; i < this.state.catalog.length; i++) {
       let item = this.state.catalog[i];
 
@@ -111,12 +121,15 @@ class Library extends Component {
           });
         }
       });
-
     }
+
   };
 
+  // Renders booklists for reserved and checked out
   renderer = () => {
+    // If you're logged in
     if (this.state.user != false) {
+      // If you have any books checked out or reserved
       if (this.state.checkedOut.length > 0 || this.state.reserved.length > 0) {
         return (
           <View>
@@ -133,6 +146,7 @@ class Library extends Component {
           </View>
         );
       } else {
+        // You don't have any books checked out or reserved
         return(
           <Text style={{
             fontSize: 20,
@@ -144,6 +158,7 @@ class Library extends Component {
         );
       }
     } else {
+      // You're not logged in
       return (
         <Text style={{
           fontSize: 20,
@@ -157,6 +172,7 @@ class Library extends Component {
   };
 
   render() {
+    // Evade a stupid warning with this ref
     return (
       <View ref="default">
 

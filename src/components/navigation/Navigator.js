@@ -11,18 +11,19 @@ import {
 
 import { StackNavigator } from 'react-navigation';
 
-import Container from '../helpers/Container';
-
+// Things to navigate to
 import Catalog from '../catalog/Catalog';
 import CheckOut from '../catalog/CheckOut';
 import Library from '../library/Library';
 import Map from '../map/Map';
 import Login from '../profile/Login';
 
+// Things that are nice and help
+import Container from '../helpers/Container';
 import easyAsync from '../helpers/easyAsync';
 
 
-
+// Renderes content based upon which button is selected
 class ContentRenderer extends Component {
   constructor(props) {
     super(props);
@@ -43,13 +44,17 @@ class Navigator extends Component {
     super(props);
 
     this.state = {
+      // the default button to start with
       active: "0",
 
+      // each of the buttons and their data/where they correspond to
       buttons: [
         {
           key: "0",
           label: "Browse",
           icon: "local-library",
+          // pass navigation so that it's able to navigate to the check out
+          // screen
           content: <Catalog
             navigation={this.props.navigation}
           />
@@ -58,6 +63,8 @@ class Navigator extends Component {
           key: "1",
           label: "Yours",
           icon: "playlist-add-check",
+          // pass navigation so that it's able to navigate to the check out
+          // screen
           content: <Library
             navigation={this.props.navigation}
           />
@@ -77,6 +84,8 @@ class Navigator extends Component {
       ]
     };
 
+    // Iterate through the buttons above and parse them into actual buttons,
+    // icons, and actions
     this.buttons = this.state.buttons.map((button) => {
       return (
         <BottomNavigation.Action
@@ -90,6 +99,9 @@ class Navigator extends Component {
       );
     });
 
+    // A fix in case the status of the user being logged in is lost, meaning if
+    // it finds the async "loggedIn" value to be null rather than false, it
+    // resets it to false.
     easyAsync.getItem("loggedIn").then((value) => {
       if (value == null) {
         easyAsync.setItem("loggedIn", false);
@@ -115,7 +127,7 @@ class Navigator extends Component {
   }
 }
 
-
+// The RootStack navigator, which allows the navigation into the CheckOutScreen
 const RootStack = StackNavigator(
   {
     NavigatorScreen: {

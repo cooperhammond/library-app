@@ -9,11 +9,14 @@ import {
 import { PropTypes } from 'prop-types';
 
 
+
+// Set up the properties that are required for this component
 const propTypes = {
   catalog: PropTypes.array.isRequired,
   height: PropTypes.number,
 };
 
+// Set the default properties
 const defaultProps = {
   catalog: null,
   height: 300,
@@ -28,10 +31,12 @@ class CatalogList extends Component {
       item.key = i + 1;
     });
 
+    // Function definitions
     this.handlePress = this.handlePress.bind(this);
 
   }
 
+  // Navigate to the check out screen for the book pressed
   handlePress = (item) => {
     this.props.navigation.navigate('CheckOutScreen', {
       navigation: this.props.navigation,

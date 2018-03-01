@@ -26,9 +26,6 @@ class Catalog extends Component {
   constructor(props) {
     super(props);
 
-    this.onSubmitEditing = this.onSubmitEditing.bind(this);
-    this.onSubmitEditing = this.filterCatalog.bind(this);
-
     this.state = {
       searchInput: "",
       catalog: require('../../../assets/data/catalog.json'),
@@ -36,15 +33,16 @@ class Catalog extends Component {
     };
 
 
+    // Add "All" as a tag to each book
     this.state.catalog.forEach((item, i) => {
       item.tags.push("All");
     });
+
+    // Function definition
+    this.filterCatalog = this.filterCatalog.bind(this);
   }
 
-  onSubmitEditing = () => {
-    alert("You searched for: " + this.state.searchInput);
-  }
-
+  // Filter out books that don't have the specified tag
   filterCatalog = (tag) => {
     return this.state.catalog.filter((item) => {
       return item.tags.includes(tag)
@@ -97,8 +95,8 @@ class Catalog extends Component {
           centerElement="Catalog"
         />
 
-        {/* In order to scroll through multiple lists from different tags */}
 
+        {/* In order to scroll through multiple lists from different tags */}
         <FlatList
           data={this.state.catalogs}
           renderItem={({item}) => {

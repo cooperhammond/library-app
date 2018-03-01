@@ -1,5 +1,10 @@
 import { AsyncStorage } from 'react-native';
 
+/*
+An async wrapper that uses JSON.stringify and JSON.parse in order to get, set,
+and remove keys in simple oneline callable functions.
+*/
+
 const easyAsync = {
 
   async setItem(key, value) {
@@ -17,7 +22,8 @@ const easyAsync = {
           try {
             result = JSON.parse(result);
           } catch (e) {
-            alert('AsyncStorage#getItem error deserializing JSON for key: ' + key, e.message);
+            alert('AsyncStorage#getItem error deserializing JSON for key: ' +
+              key, e.message);
           }
         }
         return result;

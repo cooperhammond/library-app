@@ -7,6 +7,7 @@ import {
 
 import ImageView from 'react-native-image-view';
 
+// Displays an image under the map tab
 class Map extends Component {
   constructor(props) {
     super(props);

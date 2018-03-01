@@ -23,6 +23,7 @@ import easyAsync from '../helpers/easyAsync';
 import { setNotification } from '../helpers/notifications';
 
 
+// Styles for this file
 const styles = StyleSheet.create({
   rowContainer: {
     margin: 8,
@@ -43,8 +44,10 @@ class CheckOut extends Component {
   constructor(props) {
     super(props);
 
+    // Get params that are passed from CatalogList through react-navigation
     const { params } = this.props.navigation.state;
 
+    // Set the generally default properties of state
     this.state = {
       item: params ? params.item : null,
       title: params ? params.item.title : null,
@@ -54,6 +57,8 @@ class CheckOut extends Component {
       checkedOutTime: 60, // 1 minute
     };
 
+
+    // Function definitions
     this.getUser = this.getUser.bind(this);
     this.pullItemStatus = this.pullItemStatus.bind(this);
     this.handleCheckOut = this.handleCheckOut.bind(this);
@@ -67,12 +72,14 @@ class CheckOut extends Component {
     this.pullItemStatus();
   }
 
+  // Get the async value of who's logged in.
   getUser = () => {
     easyAsync.getItem("loggedIn").then((value) => {
       this.setState({user: value});
     });
   };
 
+  // Set the state to the corresponding async value of this item
   pullItemStatus = () => {
     easyAsync.getItem("checkedOut:" + this.state.title).then((value) => {
       this.setState({checkedOut: value});
@@ -82,6 +89,8 @@ class CheckOut extends Component {
     });
   };
 
+  // Set checked out async value and a notification for when it needs to be
+  // returned.
   handleCheckOut = () => {
     easyAsync.setItem("checkedOut:" + this.state.title, this.state.user)
     .then(() => this.pullItemStatus());
@@ -109,6 +118,7 @@ class CheckOut extends Component {
     .then(() => this.pullItemStatus());
   };
 
+  // Share stuff through iOS's and Android's built in share methods
   handleShare = () => {
     Share.share({
       message: 'I found the book "' + this.state.title + '" through this library app! https://github.com/kepoorhampond/library-app',
@@ -120,6 +130,7 @@ class CheckOut extends Component {
     });
   };
 
+  // If you're not logged in, tell the user
   signedInText = () => {
     if (this.state.user == false) {
       return (

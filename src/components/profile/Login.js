@@ -24,6 +24,7 @@ import {
 import easyAsync from '../helpers/easyAsync';
 
 
+// styles for this file
 const styles = StyleSheet.create({
   formContainter: {
     margin: 30,
@@ -46,6 +47,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
+    // set data into state
     this.state = {
       loggedIn: false,
       username: '',
@@ -53,6 +55,7 @@ class Login extends Component {
       logins: require('../../../assets/data/logins.json'),
     };
 
+    // function definitions
     this.loggedIn = this.loggedIn.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -60,9 +63,11 @@ class Login extends Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.handleBug = this.handleBug.bind(this);
 
+    // who's logged in? nobody? somebody?
     this.loggedIn();
   }
 
+  // Finds who's logged in with async value "loggedIn" and sets it in the state
   loggedIn = () => {
     easyAsync.getItem("loggedIn").then((value) => {
       this.setState({loggedIn: value});
@@ -71,17 +76,17 @@ class Login extends Component {
 
   handleLogout = () => {
     easyAsync.setItem("loggedIn", false);
-    this.loggedIn();
+    this.loggedIn(); // Updates who's logged in
   };
 
   handleLogin = () => {
     let username = this.state.username;
     let password = this.state.password;
 
-    if (this.state.logins[username] == password) {
+    if (this.state.logins[username] == password) { // Screw security, this works
 
       easyAsync.setItem("loggedIn", username);
-      this.loggedIn();
+      this.loggedIn(); // Updates who's logged in
       alert("Successfully logged in as: " + username);
 
     } else {
@@ -97,6 +102,7 @@ class Login extends Component {
     this.setState({ password: text });
   };
 
+  // Opens up the user's email client with the below draft already in place
   handleBug = () => {
     Communications.email(
       ['kepoorh@gmail.com'], // to
@@ -111,10 +117,9 @@ class Login extends Component {
 
   render() {
 
+    // If logged in
     let label = "Profile";
-
     let statusDependentData = <Text style={styles.text}>You're logged in as {this.state.loggedIn}</Text>;
-
     let button = <LogoutButton onPress={this.handleLogout} />;
 
     if (this.state.loggedIn == false) { // If not logged in
