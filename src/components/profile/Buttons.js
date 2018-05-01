@@ -27,6 +27,31 @@ const LogoutButton = (props) => {
   );
 };
 
+
+const RegisterButton = (props) => {
+  return (
+    <Button
+      raised
+      accent
+      text="New? Register here!"
+      icon="account-box"
+      onPress={props.onPress}
+    />
+  );
+};
+
+const SubmitRegisterButton = (props) => {
+  return (
+    <Button
+      raised
+      accent
+      text="Register"
+      icon="check-circle"
+      onPress={props.onPress}
+    />
+  );
+};
+
 const ShareBug = (props) => {
   return (
     <Button
@@ -41,5 +66,7 @@ const ShareBug = (props) => {
 export {
   LoginButton,
   LogoutButton,
+  RegisterButton,
+  SubmitRegisterButton,
   ShareBug,
 };

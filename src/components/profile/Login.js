@@ -18,6 +18,7 @@ import Communications from 'react-native-communications';
 import {
   LoginButton,
   LogoutButton,
+  RegisterButton,
   ShareBug,
 } from './Buttons';
 
@@ -26,7 +27,7 @@ import easyAsync from '../helpers/easyAsync';
 
 // styles for this file
 const styles = StyleSheet.create({
-  formContainter: {
+  formContainer: {
     margin: 30,
     justifyContent: 'center',
   },
@@ -83,16 +84,24 @@ class Login extends Component {
     let username = this.state.username;
     let password = this.state.password;
 
-    if (this.state.logins[username] == password) { // Screw security, this works
+    easyAsync.getItem("user:" + username).then((value) => {
+      if (this.state.logins[username] == password || value == password) {
 
-      easyAsync.setItem("loggedIn", username);
-      this.loggedIn(); // Updates who's logged in
-      alert("Successfully logged in as: " + username);
+        easyAsync.setItem("loggedIn", username);
+        this.loggedIn(); // Updates who's logged in
+        alert("Successfully logged in as: " + username);
 
-    } else {
-      alert("Incorrect username or password.");
-    }
+      } else {
+        alert("Incorrect username or password.");
+      }
+    });
   };
+
+  handleRegister = () => {
+    this.props.navigation.navigate('RegisterScreen', {
+      navigation: this.props.navigation,
+    });
+  }
 
   handleUsername = (text) => {
     this.setState({ username: text });
@@ -120,7 +129,8 @@ class Login extends Component {
     // If logged in
     let label = "Profile";
     let statusDependentData = <Text style={styles.text}>You're logged in as {this.state.loggedIn}</Text>;
-    let button = <LogoutButton onPress={this.handleLogout} />;
+    let profileButton = <LogoutButton onPress={this.handleLogout} />;
+    let registerButton = <View></View>;
 
     if (this.state.loggedIn == false) { // If not logged in
 
@@ -145,7 +155,8 @@ class Login extends Component {
         </View>
       );
 
-      button = <LoginButton onPress={this.handleLogin} />;
+      profileButton = <LoginButton onPress={this.handleLogin} />;
+      registerButton = <RegisterButton onPress={this.handleRegister} />;
     }
 
     return (
@@ -164,12 +175,16 @@ class Login extends Component {
           centerElement={label}
         />
 
-        <View style={styles.formContainter}>
+        <View style={styles.formContainer}>
 
           {statusDependentData}
 
           <View style={styles.button}>
-            {button}
+            {profileButton}
+          </View>
+
+          <View style={styles.button}>
+            {registerButton}
           </View>
 
           <View style={styles.button}>

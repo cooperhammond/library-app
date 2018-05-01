@@ -17,6 +17,7 @@ import CheckOut from '../catalog/CheckOut';
 import Library from '../library/Library';
 import Map from '../map/Map';
 import Login from '../profile/Login';
+import Register from '../profile/Register';
 
 // Things that are nice and help
 import Container from '../helpers/Container';
@@ -79,7 +80,9 @@ class Navigator extends Component {
           key: "3",
           label: "Profile",
           icon: "account-circle",
-          content: <Login />
+          content: <Login
+            navigation={this.props.navigation}
+          />
         },
       ]
     };
@@ -135,6 +138,9 @@ const RootStack = StackNavigator(
     },
     CheckOutScreen: {
       screen: CheckOut,
+    },
+    RegisterScreen: {
+      screen: Register,
     },
   },
   {

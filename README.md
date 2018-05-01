@@ -1,5 +1,7 @@
 # library-app
 
+https://oblador.github.io/react-native-vector-icons/
+
 https://github.com/xotahal/react-native-material-ui
 
 https://github.com/xotahal/react-native-material-ui-demo-app
@@ -55,5 +57,12 @@ Whether the user is logged in or not:
 ```
 {
   "loggedIn": <username | false>
+}
+```
+
+Registered users:
+```
+{
+  "user:<username>": <password>
 }
 ```
