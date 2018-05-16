@@ -1,20 +1,10 @@
-# library-app
+# miskatonic-library-app
 
-https://oblador.github.io/react-native-vector-icons/
+Created for the FBLA competition Mobile Application Developement, won first in state. 
 
-https://github.com/xotahal/react-native-material-ui
+It's an iOS and Android compatible app made through the React Native framework.
 
-https://github.com/xotahal/react-native-material-ui-demo-app
-
-https://github.com/chirag04/react-native-mail
-
-https://github.com/n4kz/react-native-material-textfield
-
-https://reactnavigation.org/docs/params.html
-
-http://www.fbla-pbl.org/competitive-event/mobile-application-development-fbla/
-
-# Overview
+# Competition Overview
 
 Two (2) parts: a prejudged project and a presentation. Competitors must complete both parts for award eligibility.
 Topic: Develop an app to manage the issuance of books and to provide other information at a school library. Give the school a name. The app must be able to do or show the following:
@@ -25,13 +15,15 @@ Topic: Develop an app to manage the issuance of books and to provide other infor
  - Show a map of the school library.
 
 
-# Guidelines
+## Competition Guidelines
  - The following platforms may be used to develop the project: Google’s Android, Apple iOS, or Microsoft Windows Phone.
  - Project submissions must include the source code and screen shots of the GUI in PDF format.
  - The solution must run standalone with no programming errors.
  - Applications may deploy from a smartphone, tablet, or both, but must be smartphone deployable.
  - Applications do not need to be available for download from a digital-distribution multimedia-content service.
  - The app should be shown to the judges.
+
+# The App itself
 
 ## AsyncStorage Guidelines
 
