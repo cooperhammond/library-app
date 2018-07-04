@@ -32,25 +32,6 @@ class Catalog extends Component {
       catalogs: []
     };
 
-
-    // Add "All" as a tag to each book
-    this.state.catalog.forEach((item, i) => {
-      item.tags.push("All");
-    });
-
-    // Function definition
-    this.filterCatalog = this.filterCatalog.bind(this);
-  }
-
-  // Filter out books that don't have the specified tag
-  filterCatalog = (tag) => {
-    return this.state.catalog.filter((item) => {
-      return item.tags.includes(tag)
-    });
-  }
-
-  render() {
-
     var tags = [];
     // Get all tags from the catalog
     tags = [].concat.apply([], this.state.catalog.map((item) => item.tags));
@@ -76,6 +57,19 @@ class Catalog extends Component {
         </View>
       )
     };
+
+    // Function definition
+    this.filterCatalog = this.filterCatalog.bind(this);
+  }
+
+  // Filter out books that don't have the specified tag
+  filterCatalog = (tag) => {
+    return this.state.catalog.filter((item) => {
+      return item.tags.includes(tag)
+    });
+  }
+
+  render() {
 
     return(
       <View style={{
